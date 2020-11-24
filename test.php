@@ -23,14 +23,25 @@
 	
 	function getPacks($packs, $order){
 		echo "Order: " . ($order) . "<br>";
+		
+		$cart = calculateCart($packs, $order);
+		$cartSum=0;
+		for ($i = 0; $i<count($cart); $i++) {
+			$cartSum += $cart[$i];
+		}
+		
+		echo json_encode(calculateCart($packs, $cartSum)) . "<br> <br>";
+	}
+	
+	function calculateCart($packs, $order){
 		$cart=array();
 		for ($i = count($packs)-1; $i >= 0; $i--) {
 			$pack=$packs[$i];
 			while(true){
 				$sum = $order - $pack;
-				if($sum > 0){
+				if($sum >= 0){
 					$order = $order - $pack;
-					if($order < 1){
+					if($order < 0){
 						break;
 					}
 					array_push($cart,$pack); 
@@ -42,8 +53,9 @@
 		if($order >= 1){
 			array_push($cart,$packs[0]); 
 		}
-		
-		echo json_encode($cart) . "<br> <br>";
+		return $cart;
 	}
+	
+	
 
 ?>
