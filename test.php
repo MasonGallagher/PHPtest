@@ -15,9 +15,6 @@
 	$order=501;
 	getPacks($packs, $order);
 	
-	$order=251;
-	getPacks($packs, $order);
-	
 	$order=2001;
 	getPacks($packs, $order);
 	
